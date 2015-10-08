@@ -40,7 +40,7 @@ abstract class AbstractExceptionProcessor
     private function processException(Exception $exception)
     {
         $context = [
-            'exception' => get_class($exception),
+            'exception_class' => get_class($exception),
         ];
 
         return $this->addStackContext($exception, $context);
