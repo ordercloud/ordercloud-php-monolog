@@ -14,6 +14,15 @@ class VerboseMultilineFormatter extends LineFormatter
         parent::__construct(static::VERBOSE_MULTILINE_FORMAT, null, true, true);
     }
 
+    public function format(array $record)
+    {
+        if (isset($record['context']['exception'])) {
+            $record['message'] = (string) $record['context']['exception'];
+        }
+
+        return parent::format($record);
+    }
+
     protected function convertToString($data)
     {
         if (is_array($data)) {
