@@ -15,7 +15,6 @@ abstract class AbstractExceptionProcessor
         $context = $record['context'];
 
         if (isset($context['exception']) && $this->handlesException($context['exception'])) {
-            $record['message'] = (string) $context['exception'];
             $record['context'] = array_merge($context, $this->processException($context['exception']));
         }
 
