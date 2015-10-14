@@ -12,6 +12,10 @@
     "monolog/monolog" : "*",
     "ordercloud/ordercloud": ">=0.3.0"
   },
+  "require-dev": {
+    "ordercloud/cart": "dev-develop",
+    "illuminate/session": "4.2.17"
+  },
   "autoload": {
     "psr-4": {
       "Ordercloud\\Monolog\\": "src/"
