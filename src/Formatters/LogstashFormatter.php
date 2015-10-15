@@ -8,12 +8,17 @@ class LogstashFormatter extends NormalizerFormatter
      * @var string
      */
     private $applicationName;
+    /**
+     * @var string|null
+     */
+    private $environment;
 
-    public function __construct($applicationName)
+    public function __construct($applicationName, $environment = null)
     {
         parent::__construct('Y-m-d\TH:i:s.uP');
 
         $this->applicationName = $applicationName;
+        $this->environment = $environment;
     }
 
     public function format(array $record)
@@ -23,7 +28,7 @@ class LogstashFormatter extends NormalizerFormatter
         $log['timestamp'] = $record['datetime'];
         $log['message'] = $record['message'];
         $log['app_name'] = $this->applicationName;
-        $log['environment'] = $record['channel'];
+        $log['environment'] = $this->environment ?: $record['channel'];
         $log['host_container_id'] = gethostname();
         $log['level'] = [
             'code' => $record['level'],
