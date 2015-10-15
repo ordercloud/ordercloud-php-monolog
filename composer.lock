@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f5550870401a0e83ae13a1ea0ad59821",
+    "hash": "ae6a2eaf16a679acfd722f3d9789741e",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -385,16 +385,16 @@
         },
         {
             "name": "ordercloud/ordercloud",
-            "version": "0.3.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ordercloud/ordercloud-php.git",
-                "reference": "fc82afd275e8531d22d15ad40d659b4a73b31c0e"
+                "reference": "34ca7660dfc833cb28aab8f836086c866eea76de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ordercloud/ordercloud-php/zipball/fc82afd275e8531d22d15ad40d659b4a73b31c0e",
-                "reference": "fc82afd275e8531d22d15ad40d659b4a73b31c0e",
+                "url": "https://api.github.com/repos/ordercloud/ordercloud-php/zipball/34ca7660dfc833cb28aab8f836086c866eea76de",
+                "reference": "34ca7660dfc833cb28aab8f836086c866eea76de",
                 "shasum": ""
             },
             "require": {
@@ -408,6 +408,9 @@
             "require-dev": {
                 "phpspec/nyan-formatters": "1.0.1",
                 "phpspec/phpspec": "2.2.0"
+            },
+            "suggest": {
+                "ordercloud/extentions-monolog": "Provides monolog helper processors & formatters"
             },
             "type": "library",
             "autoload": {
@@ -430,7 +433,7 @@
                 }
             ],
             "description": "Ordercloud php client",
-            "time": "2015-09-23 11:11:06"
+            "time": "2015-10-13 15:53:58"
         },
         {
             "name": "psr/log",
@@ -1305,6 +1308,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "ordercloud/ordercloud": 20,
         "ordercloud/cart": 20
     },
     "prefer-stable": false,

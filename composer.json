@@ -9,10 +9,10 @@
     }
   ],
   "require": {
-    "monolog/monolog" : "*",
-    "ordercloud/ordercloud": ">=0.3.0"
+    "monolog/monolog" : "*"
   },
   "require-dev": {
+    "ordercloud/ordercloud": "dev-develop",
     "ordercloud/cart": "dev-develop",
     "illuminate/session": "4.2.17"
   },

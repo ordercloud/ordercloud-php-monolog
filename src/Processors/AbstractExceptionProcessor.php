@@ -2,6 +2,7 @@
 
 use Exception;
 use ReflectionClass;
+use ReflectionMethod;
 
 abstract class AbstractExceptionProcessor
 {
@@ -14,21 +15,11 @@ abstract class AbstractExceptionProcessor
     {
         $context = $record['context'];
 
-        if (isset($context['exception']) && $this->handlesException($context['exception'])) {
+        if (isset($context['exception'])) {
             $record['context'] = array_merge($context, $this->processException($context['exception']));
         }
 
         return $record;
-    }
-
-    /**
-     * @param Exception $exception
-     *
-     * @return bool
-     */
-    private function handlesException(Exception $exception)
-    {
-        return method_exists($this, $this->getExceptionHandlerMethod($exception));
     }
 
     /**
@@ -73,24 +64,30 @@ abstract class AbstractExceptionProcessor
      */
     private function processExceptionContext(Exception $exception, array $context)
     {
-        if ( ! $this->handlesException($exception)) {
-            return $context;
+        foreach($this->getExceptionHandlerMethods($exception) as $method) {
+            $context = $this->{$method->getName()}($exception, $context);
         }
 
-        $exceptionHandlerMethod = $this->getExceptionHandlerMethod($exception);
-
-        return $this->$exceptionHandlerMethod($exception, $context);
+        return $context;
     }
 
     /**
      * @param Exception $exception
      *
-     * @return string
+     * @return array|ReflectionMethod[]
      */
-    private function getExceptionHandlerMethod(Exception $exception)
+    private function getExceptionHandlerMethods(Exception $exception)
     {
-        $exceptionClassName = (new ReflectionClass($exception))->getShortName();
+        $class = new ReflectionClass($this);
 
-        return "handle{$exceptionClassName}";
+        $handlerMethods = [];
+        foreach ($class->getMethods(ReflectionMethod::IS_PROTECTED) as $method) {
+            $param = current($method->getParameters());
+            if ($param && $param->getClass() && $param->getClass()->isInstance($exception)) {
+                $handlerMethods[] = $method;
+            }
+        }
+
+        return $handlerMethods;
     }
 }
